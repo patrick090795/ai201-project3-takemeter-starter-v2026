@@ -39,50 +39,48 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
-
-
+TakeMeter is a text classifier for original public posts from Reddit's r/technology community. It is designed to sort posts into two categories: `factual_report`, for posts that mainly report an event or development, and `opinion`, for posts that mainly present a judgment or argument. I reviewed 37 post titles while choosing the community and developing the labels. The goal is to train a small model on consistently labeled real posts and evaluate its predictions.
 
 ---
 
 ## Label Taxonomy
 
-<!-- Each label: a one-sentence definition and two real examples from your
-     reading. Then your decision rule for the hardest boundary.
+After reviewing posts about AI, cybersecurity, software, surveillance, and technology companies, I chose **two labels**. I originally considered `analysis` and `reaction` as additional categories, but I found that these were difficult to distinguish consistently from news reports in this community. The definitions below apply to the **original Reddit submission text** (not the comments or the full external article).
 
-     The decision rule is worth a point on its own and it's the thing most
-     people leave out. Every taxonomy has a hardest boundary. Name yours. -->
+### `factual_report`
 
-### `label_one`
+**Definition:** A post that primarily reports a specific event, finding, announcement, or technology development without making the poster's own judgment its main point.
 
-**Definition:**
+**Example 1 (post #2):**
+> US restarts three shut-down nuclear reactors to feed AI data centers — 2.25 GW coming online with backing from Microsoft and Google
 
-**Example 1:**
->
+**Example 2 (post #23):**
+> The Internet goes on high alert after discovery of 8 compromised TLS certs
 
-**Example 2:**
->
+### `opinion`
 
-### `label_two`
+**Definition:** A post that primarily makes or advances a judgment, criticism, prediction, or recommendation rather than simply reporting what happened.
 
-**Definition:**
+**Example 1 (post #16):**
+> Don’t be fooled. The AI that was supposed to save us time is doing just the opposite
 
-**Example 1:**
->
+**Example 2 (post #27; provisional pending full-submission review):**
+> Would you really give up ChatGPT to shut down data centers? Tech CEO highlights the hypocrisy of some AI critics
 
-**Example 2:**
->
+This second example has an opinionated headline, but may primarily be reporting what a CEO said. I will check the original submission before treating it as a final `opinion` example or including it in `labels.csv`.
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `factual_report` and `opinion`.
 
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+**Borderline example (post #33):**
+> Clive Barker says he's "genuinely astonished" by Hellraiser: Revival
 
+The quoted statement expresses a reaction, but the Reddit post is chiefly reporting another person's statement. I classify the original submission as `factual_report`.
 
+**The decision rule I used every time:** Classify a post as `factual_report` when its primary purpose is to report an event, finding, announcement, or someone else's statement, even if the headline contains an emotional quote, statistic, or criticism. Classify it as `opinion` when the post itself chiefly argues for a judgment, interpretation, prediction, or recommendation. Read the whole available Reddit submission when the headline is ambiguous; do not use comments or an external article as a substitute for the post's own text.
+
+**Boundary stress test:** I used AI to generate eight fictional examples that sit near this boundary, then classified them myself. I agreed with the intended classifications on five of eight. In three cases I treated a report of someone else's claim or a study finding as the poster's own opinion. This helped me clarify the reporting-versus-arguing distinction. The fictional examples are not part of my dataset.
 
 ---
 
@@ -162,17 +160,17 @@ of next unit's variance. -->
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I shared r/technology post titles and asked AI to help identify repeated patterns and possible labels for TakeMeter.
+- *What came back:* It suggested categories such as factual reporting, opinion, reaction, and analysis, and compared several borderline headlines.
+- *What I changed:* I settled on two labels (`factual_report` and `opinion`) because the original posts in this community are mostly news submissions and the other categories were difficult to apply consistently.
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I asked AI to create eight difficult examples to test the boundary between my labels.
+- *What came back:* Eight fictional headlines and suggested classifications. I initially matched five out of eight.
+- *What I changed:* I clarified my decision rule to distinguish a post reporting another person's opinion from a post advancing the author's own opinion.
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** No real posts have been AI-pre-labeled for `labels.csv` yet. I will disclose any AI-assisted pre-labeling and my manual corrections when collecting the full dataset in Milestone 4.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
