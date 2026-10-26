@@ -1,3 +1,4 @@
+
 # Acceptance criteria — TakeMeter
 
 Five criteria that say what "working" means for this classifier, written in
@@ -51,63 +52,53 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Overall accuracy
 
-<!-- Your criterion. It must name a number. -->
-
-
+The TakeMeter classifier must achieve **at least 80% overall accuracy** on the held-out test set.
 
 **Why this target:**
 
-
+I want the classifier to correctly identify most r/technology posts while recognizing that factual reports and opinions can sometimes overlap. I chose 80% as a challenging but useful target for a two-label classifier.
 
 ---
 
-## 2.
+## 2. Per-label performance
 
-<!-- Your criterion. -->
-
-
+Both `factual_report` and `opinion` must individually achieve an **F1-score of at least 0.70** on the held-out test set.
 
 **Why this target:**
 
-
+I want TakeMeter to classify both factual reports and opinions reliably instead of performing well on only the most common type of post. This matters because many r/technology submissions are news reports.
 
 ---
 
-## 3.
+## 3. Class balance
 
-<!-- Your criterion. -->
-
-
+In `labels.csv`, **neither label may exceed 60%** of the labeled examples.
 
 **Why this target:**
 
-
+I want both `factual_report` and `opinion` to have enough training examples so the model does not become biased toward the more common category. With 200 posts, this means 80–120 examples per label.
 
 ---
 
-## 4.
+## 4. Labeling consistency
 
-<!-- Your criterion. -->
-
-
+Two people independently applying our `factual_report` and `opinion` definitions to the **same 30 r/technology posts** must agree on **at least 24 of the 30 posts (80%)**.
 
 **Why this target:**
 
-
+I want my label definitions to be clear enough that another person can classify the same technology posts consistently, especially when a news report contains someone else’s opinion. This requires a separate independent labeling check under our taxonomy; the Unit 6 staff-taxonomy agreement task does not measure this criterion.
 
 ---
 
-## 5.
+## 5. High-confidence accuracy
 
-<!-- Your criterion. -->
-
-
+Among held-out test predictions where the model’s top predicted class has a confidence score of **at least 0.80**, **at least 85% must be correct**, with **at least 10 such predictions**. If fewer than 10 qualify, the criterion is not met.
 
 **Why this target:**
 
-
+I want TakeMeter’s high-confidence predictions to be reliable so users can trust classifications when the model is confident about its decision. The evaluation must extract prediction confidence values from model outputs if the notebook does not already report this measure.
 
 ---
 
