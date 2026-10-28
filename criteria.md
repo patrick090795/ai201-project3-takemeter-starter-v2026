@@ -58,49 +58,49 @@ The TakeMeter classifier must achieve **at least 80% overall accuracy** on the h
 
 **Why this target:**
 
-I want the classifier to correctly identify most r/technology posts while recognizing that factual reports and opinions can sometimes overlap. I chose 80% as a challenging but useful target for a two-label classifier.
+I want TakeMeter to correctly classify most gaming discussions into `analysis`, `hot_take`, and `reaction`. Some comments combine opinions, evidence, and personal feelings, making classification challenging. I chose 80% because I want the model to make reliable predictions even when the differences between categories are not obvious.
 
 ---
 
 ## 2. Per-label performance
 
-Both `factual_report` and `opinion` must individually achieve an **F1-score of at least 0.70** on the held-out test set.
+Each of the three labels (`analysis`, `hot_take`, and `reaction`) must achieve an **F1-score of at least 0.70** on the held-out test set.
 
 **Why this target:**
 
-I want TakeMeter to classify both factual reports and opinions reliably instead of performing well on only the most common type of post. This matters because many r/technology submissions are news reports.
+I want TakeMeter to perform consistently across all three categories rather than getting high accuracy by predicting only the most common label. This matters because some gaming comments contain both opinions and supporting examples, while others are simple reactions. An F1-score of 0.70 for each label would show that the model can make useful distinctions between them.
 
 ---
 
 ## 3. Class balance
 
-In `labels.csv`, **neither label may exceed 60%** of the labeled examples.
+In `labels.csv`, **no single label may represent more than 60%** of all labeled examples.
 
 **Why this target:**
 
-I want both `factual_report` and `opinion` to have enough training examples so the model does not become biased toward the more common category. With 200 posts, this means 80–120 examples per label.
+I want the dataset to contain enough examples from all three categories so the model does not become overly dependent on one label. Gaming discussions may contain many strong opinions, so I want to avoid having `hot_take` dominate the dataset. Keeping every label at or below 60% will help reduce class imbalance.
 
 ---
 
 ## 4. Labeling consistency
 
-Two people independently applying our `factual_report` and `opinion` definitions to the **same 30 r/technology posts** must agree on **at least 24 of the 30 posts (80%)**.
+Two people independently applying the `analysis`, `hot_take`, and `reaction` definitions to the **same 30 gaming comments** must agree on **at least 24 of the 30 comments (80%)**.
 
 **Why this target:**
 
-I want my label definitions to be clear enough that another person can classify the same technology posts consistently, especially when a news report contains someone else’s opinion. This requires a separate independent labeling check under our taxonomy; the Unit 6 staff-taxonomy agreement task does not measure this criterion.
+I want the label definitions to be clear enough that different people can use them consistently. The hardest distinction is between `analysis` and `hot_take`, especially when someone gives an explanation without providing specific evidence. At least 80% agreement would suggest that the definitions and decision rules are understandable and repeatable.
+
+This will be measured through an independent labeling check using our own taxonomy, separate from the Unit 6 staff-taxonomy agreement task.
 
 ---
 
 ## 5. High-confidence accuracy
 
-Among held-out test predictions where the model’s top predicted class has a confidence score of **at least 0.80**, **at least 85% must be correct**, with **at least 10 such predictions**. If fewer than 10 qualify, the criterion is not met.
+Among held-out test predictions where the model's top predicted class has a confidence score of **at least 0.80**, **at least 85% must be correct**, with **at least 10 such predictions**. If fewer than 10 qualify, the criterion is not met.
 
 **Why this target:**
 
-I want TakeMeter’s high-confidence predictions to be reliable so users can trust classifications when the model is confident about its decision. The evaluation must extract prediction confidence values from model outputs if the notebook does not already report this measure.
-
----
+I want TakeMeter's high-confidence predictions to be reliable so users can trust classifications when the model is confident about its decision. The evaluation must extract prediction confidence values from model outputs if the notebook does not already report this measure.
 
 <!-- ─────────────────────────────────────────────────────────────────────────
      UNIT 6 — read this before you change anything above.
