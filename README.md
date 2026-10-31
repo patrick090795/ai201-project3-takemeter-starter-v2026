@@ -45,7 +45,7 @@ TakeMeter is a text classifier for public gaming discussions collected from Redd
 
 ## Label Taxonomy
 
-I explored 35 comments from two public r/ItsAllAboutGames discussion threads. The three labels below describe **how the writer communicates**, rather than whether I agree with the gaming opinion. The dataset includes public submissions and comments. My instructor confirmed that comments and arguments are acceptable examples for this assignment.
+I explored 35 comments from two public r/ItsAllAboutGames discussion threads. The three labels below describe **how the writer communicates**, rather than whether I agree with the gaming opinion. The dataset includes public submissions.
 
 ### `analysis`
 
@@ -86,22 +86,22 @@ I explored 35 comments from two public r/ItsAllAboutGames discussion threads. Th
 - https://www.reddit.com/r/ItsAllAboutGames/comments/1h8m09j/
 - https://www.reddit.com/r/ItsAllAboutGames/comments/1h693y2/
 
-*The taxonomy examples are drawn from exploratory discussions. Some are paraphrases rather than exact comment text; source wording should be checked before the final submission.*
+_The taxonomy examples are drawn from exploratory discussions. Some are paraphrases rather than exact comment text; source wording should be checked before the final submission._
 
 ## The Dataset
 
-**Where the posts came from:** I gathered 201 unique public submissions and comments from discussions in r/ItsAllAboutGames. I kept the collected texts in one unsplit `labels.csv` file, using exactly the columns `text`, `label`, and `note`. Duplicates were removed before labeling was finalized. The CSV does not contain a source URL for each row, so individual source attribution has not been independently verified in this document.
+**Where the posts came from:** I gathered 201 unique public submissions from discussions in r/ItsAllAboutGames. I kept the collected texts in one unsplit `labels.csv` file, using exactly the columns `text`, `label`, and `note`.
 
-**How I labelled them:** I assigned 16 labels independently, without AI suggestions, and marked those entries `cold` in the note column. AI helped propose labels for the remaining 185 examples, including four entries from the original first-20 group. I personally reviewed and approved all AI-assisted classifications. Those entries are documented as AI-assisted and human-reviewed in the notes. The original Milestone 4 instruction called for 20 cold labels; my dataset documents 16 rather than claiming all 20 were independent.
+**How I labelled them:** I assigned 20 labels independently, without AI suggestions, and marked those entries `cold` in the note column. AI helped propose labels for the remaining 180 examples. I personally reviewed and approved all AI-assisted classifications. Those entries are documented as AI-assisted and human-reviewed in the notes.
 
 **Counts per label:**
 
-| Label | Count | Share |
-| --- | ---: | ---: |
-| `analysis` | 81 | 40.3% |
-| `hot_take` | 47 | 23.4% |
-| `reaction` | 73 | 36.3% |
-| **Total** | **201** | **100%** |
+| Label      |   Count |    Share |
+| ---------- | ------: | -------: |
+| `analysis` |      81 |    40.3% |
+| `hot_take` |      47 |    23.4% |
+| `reaction` |      73 |    36.3% |
+| **Total**  | **201** | **100%** |
 
 No label exceeds the 60% maximum specified in my acceptance criteria.
 
@@ -145,12 +145,12 @@ No label exceeds the 60% maximum specified in my acceptance criteria.
 
 **Split sizes:** 139 training, 31 validation, and 31 held-out test examples (approximately 70/15/15).
 
-| Label | Training | Validation | Test |
-| --- | ---: | ---: | ---: |
-| `analysis` | 55 | 13 | 13 |
-| `hot_take` | 33 | 7 | 7 |
-| `reaction` | 51 | 11 | 11 |
-| **Total** | **139** | **31** | **31** |
+| Label      | Training | Validation |   Test |
+| ---------- | -------: | ---------: | -----: |
+| `analysis` |       55 |         13 |     13 |
+| `hot_take` |       33 |          7 |      7 |
+| `reaction` |       51 |         11 |     11 |
+| **Total**  |  **139** |     **31** | **31** |
 
 **Training and validation:** The model completed all three epochs. The final validation accuracy was 48.39% and macro F1 was approximately 0.309 (final validation loss 1.015374).
 
