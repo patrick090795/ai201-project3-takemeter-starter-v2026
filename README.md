@@ -39,12 +39,13 @@
 
 ## What This Does
 
+TakeMeter is a text classifier for public gaming discussions collected from Reddit's r/ItsAllAboutGames community. It assigns each example one of three labels: `analysis` (a gaming argument supported by identifiable details), `hot_take` (a confident unsupported gaming claim), or `reaction` (a personal or conversational response). I explored 35 comments from two discussion threads before defining the labels. My dataset now contains 201 unique labeled examples, which I will use to fine-tune and evaluate a small text classifier.
 
-TakeMeter is a text classifier being developed from public discussions in Reddit's r/ItsAllAboutGames community. The intended labels are `analysis` (a supported gaming argument), `hot_take` (a confident unsupported gaming claim), and `reaction` (an immediate response or feeling without a developed argument). For community exploration, I examined 35 comments across two public discussion threads and identified examples and difficult boundaries for these three categories. The next steps are to finalize the unit of analysis, collect and label real examples, and train the classifier.
+---
 
 ## Label Taxonomy
 
-I explored 35 comments from two public r/ItsAllAboutGames discussion threads. The three labels below describe **how the writer communicates**, rather than whether I agree with the gaming opinion. These are proposed rules for labeling a consistent unit of text; the exploration used _comments_, while the assignment refers to _posts_. I will confirm that comments are permitted before using them as dataset rows.
+I explored 35 comments from two public r/ItsAllAboutGames discussion threads. The three labels below describe **how the writer communicates**, rather than whether I agree with the gaming opinion. The dataset includes public submissions and comments. My instructor confirmed that comments and arguments are acceptable examples for this assignment.
 
 ### `analysis`
 
@@ -78,62 +79,57 @@ I explored 35 comments from two public r/ItsAllAboutGames discussion threads. Th
 
 **Borderline examples to revisit during labeling:** A player says Skyrim combat feels worse after Dark Souls (`analysis` or `reaction`); a player claims competitive balancing reduces fun (`analysis` or `hot_take`); a player explains leaving Pokemon because of competitive systems (`analysis` or `reaction`).
 
-**Boundary stress test:** I used AI to generate eight synthetic gaming comments designed to challenge the definitions and completed the interactive classification exercise. These synthetic comments are not part of the real-post dataset. I will record any disputed classifications and the resulting clarifications before labeling the 200 examples; I have not included an agreement score because it has not been saved here.
+**Boundary stress test:** I used AI to generate eight synthetic gaming comments designed to challenge the definitions and completed the interactive classification exercise. These synthetic comments were not used as training examples. I have not reported a score because the exercise results were not saved in the repository.
 
 **Community discussion sources:**
 
 - https://www.reddit.com/r/ItsAllAboutGames/comments/1h8m09j/
 - https://www.reddit.com/r/ItsAllAboutGames/comments/1h693y2/
 
-## _The examples above are exploratory. Before submission, check the exact comment wording and source links, and confirm with the course that comments qualify as examples when the instructions say posts._
+*The taxonomy examples are drawn from exploratory discussions. Some are paraphrases rather than exact comment text; source wording should be checked before the final submission.*
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+**Where the posts came from:** I gathered 201 unique public submissions and comments from discussions in r/ItsAllAboutGames. I kept the collected texts in one unsplit `labels.csv` file, using exactly the columns `text`, `label`, and `note`. Duplicates were removed before labeling was finalized. The CSV does not contain a source URL for each row, so individual source attribution has not been independently verified in this document.
 
-**Where the posts came from:**
-
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** I assigned 16 labels independently, without AI suggestions, and marked those entries `cold` in the note column. AI helped propose labels for the remaining 185 examples, including four entries from the original first-20 group. I personally reviewed and approved all AI-assisted classifications. Those entries are documented as AI-assisted and human-reviewed in the notes. The original Milestone 4 instruction called for 20 cold labels; my dataset documents 16 rather than claiming all 20 were independent.
 
 **Counts per label:**
 
-| Label     | Count | Share |
-| --------- | ----- | ----- |
-|           |       |       |
-|           |       |       |
-|           |       |       |
-| **Total** |       | 100%  |
+| Label | Count | Share |
+| --- | ---: | ---: |
+| `analysis` | 81 | 40.3% |
+| `hot_take` | 47 | 23.4% |
+| `reaction` | 73 | 36.3% |
+| **Total** | **201** | **100%** |
+
+No label exceeds the 60% maximum specified in my acceptance criteria.
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
+**1. Ambiguous game endings (row 20)**
 
-**1.**
+> A game's ending doesn't have to explain everything to be good. Sometimes leaving players with questions makes the story more memorable than tying every detail into a neat conclusion.
 
-> _The post:_
->
-> _Could have been:_
->
-> _I chose, because:_
+**Could have been:** `analysis` or `hot_take`.
 
-**2.**
+**I chose:** `hot_take`. The text offers a reason for the preference but does not identify a concrete example or independently checkable game feature to support the generalization.
 
-> _The post:_
->
-> _Could have been:_
->
-> _I chose, because:_
+**2. Gaming announcement (row 33)**
 
-**3.**
+> You don't need to be EA to hold a lightsaber: Lucasfilm Games opens the Star Wars vault to indie studios!
 
-> _The post:_
->
-> _Could have been:_
->
-> _I chose, because:_
+**Could have been:** `analysis` or `hot_take`.
+
+**I chose:** `hot_take` in the approved dataset. This is a limitation of my taxonomy: the text is primarily an announcement, so neither label fits cleanly. I retained the reviewed classification but would reconsider the taxonomy or collection criteria in a future iteration.
+
+**3. Question inviting a reaction (row 51)**
+
+> Which game made you feel genuinely stupid and did it feel good or terrible?
+
+**Could have been:** `reaction` or `hot_take`.
+
+**I chose:** `reaction` in the approved dataset because the question invites a personal emotional response rather than making an unsupported gaming claim. It is borderline because it asks for a reaction instead of expressing one.
 
 ---
 
@@ -155,26 +151,19 @@ of next unit's variance. -->
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
+**Moment 1 — Taxonomy design**
 
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
+- **What I asked for:** I asked AI to compare public gaming communities and help identify observable distinctions in r/ItsAllAboutGames discussions.
+- **What came back:** Candidate patterns including supported arguments, unsupported judgments, and conversational reactions, followed by eight synthetic boundary-test comments.
+- **What I changed:** I chose the three labels `analysis`, `hot_take`, and `reaction`, and clarified that merely using the word “because” does not make a claim supported analysis. The synthetic examples were not added to the dataset.
 
-**Moment 1**
+**Moment 2 — Assisted labeling**
 
-- _What I asked for:_ I shared r/technology post titles and asked AI to help identify repeated patterns and possible labels for TakeMeter.
-- _What came back:_ It suggested categories such as factual reporting, opinion, reaction, and analysis, and compared several borderline headlines.
-- _What I changed:_ I settled on two labels (`factual_report` and `opinion`) because the original posts in this community are mostly news submissions and the other categories were difficult to apply consistently.
+- **What I asked for:** I asked AI to propose labels for the examples I had not labeled independently, using my written definitions.
+- **What came back:** Suggested labels and notes flagging ambiguous examples, particularly questions and announcements that do not fit the taxonomy neatly.
+- **What I changed:** I personally reviewed and approved the AI-assisted classifications. I preserved the independent labels and documented questionable boundary cases in the Dataset section.
 
-**Moment 2**
-
-- _What I asked for:_ I asked AI to create eight difficult examples to test the boundary between my labels.
-- _What came back:_ Eight fictional headlines and suggested classifications. I initially matched five out of eight.
-- _What I changed:_ I clarified my decision rule to distinguish a post reporting another person's opinion from a post advancing the author's own opinion.
-
-**Pre-labelling disclosure:** No real posts have been AI-pre-labeled for `labels.csv` yet. I will disclose any AI-assisted pre-labeling and my manual corrections when collecting the full dataset in Milestone 4.
+**Pre-labeling disclosure:** Of the 201 examples, 16 were labeled independently (`cold`); 185 were AI-assisted and then human-reviewed and approved. Four of the initial 20 examples were AI-assisted. No synthetic stress-test comments were used as training examples.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
