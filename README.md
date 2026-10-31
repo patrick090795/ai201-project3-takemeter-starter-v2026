@@ -135,17 +135,28 @@ No label exceeds the 60% maximum specified in my acceptance criteria.
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Base model:** `distilbert-base-uncased` (DistilBERT with a newly initialized three-class sequence-classification head).
 
-**Base model:**
+**Training environment:** Google Colab running Linux, NVIDIA Tesla T4 GPU (`cuda`), PyTorch `2.11.0+cu130`. I used Colab because Windows Application Control blocked PyTorch and scikit-learn native libraries on my computer. Colab's managed Python environment did not pass the starter script's virtual-environment check, but the training dependencies loaded and the notebook ran successfully.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Settings:** 3 epochs, learning rate `2e-5`, batch size 16, maximum sequence length 128 tokens, and random seed 42. The model was fine-tuned using the supplied notebook.
 
-**Anything I changed from the defaults, and why:**
+**Anything I changed from the defaults, and why:** I kept the default training hyperparameters. I configured the three labels (`analysis`, `hot_take`, `reaction`) and corrected the evaluation confusion-matrix label lookup, which otherwise caused `KeyError: 0` with the name-to-ID mapping. This corrected metric counting; it did not retrain or change the model predictions.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+**Split sizes:** 139 training, 31 validation, and 31 held-out test examples (approximately 70/15/15).
+
+| Label | Training | Validation | Test |
+| --- | ---: | ---: | ---: |
+| `analysis` | 55 | 13 | 13 |
+| `hot_take` | 33 | 7 | 7 |
+| `reaction` | 51 | 11 | 11 |
+| **Total** | **139** | **31** | **31** |
+
+**Training and validation:** The model completed all three epochs. The final validation accuracy was 48.39% and macro F1 was approximately 0.309 (final validation loss 1.015374).
+
+**Held-out test results:** Accuracy 48.4%; macro F1 0.309. Per-label F1: `analysis` 0.619, `hot_take` 0.000, `reaction` 0.308. The most-confident third of predictions was 60% accurate, compared with 30% for the least-confident third. These summary confidence figures do not independently establish whether the confidence acceptance criterion was met.
+
+**Observation:** The `hot_take` category had only seven test examples, so its measured F1 may be unstable across seeds. Its F1 of zero and the weaker `reaction` result show areas to diagnose in Unit 6. The original acceptance criteria have not been changed after training. The notebook reported writing `results.json` and `test_split.csv`; both still need to be checked in the GitHub repository before submission.
 
 ---
 
@@ -344,15 +355,15 @@ learned:**
 
      SUBMISSION CHECKLIST — unit 5
 
-       [ ] criteria.md has five numbered criteria, each naming a NUMBER
-       [ ] Each has a reason underneath tied to your data or taxonomy
-       [ ] labels.csv: at least 150 rows, text/label/note, ONE file not split
-       [ ] No label above 70%
-       [ ] All five unit 5 sections have real content
-       [ ] Label Taxonomy includes the decision rule for your hardest boundary
-       [ ] The Dataset includes three hard cases
-       [ ] results.json and test_split.csv committed (the notebook does this)
-       [ ] At least four new commits
+       [x] criteria.md has five numbered criteria, each naming a NUMBER
+       [x] Each has a reason underneath tied to your data or taxonomy
+       [x] labels.csv: 201 rows, text/label/note, ONE file not split
+       [x] No label above 70%
+       [x] All five unit 5 sections have real content
+       [x] Label Taxonomy includes the decision rule for your hardest boundary
+       [x] The Dataset includes three hard cases
+       [ ] results.json and test_split.csv committed (generated in Colab; Git commit not yet verified)
+       [ ] At least four new commits (verify Git history)
        [ ] Repository URL submitted — WRITE IT DOWN
 
      SUBMISSION CHECKLIST — unit 6
