@@ -185,25 +185,22 @@ No label exceeds the 60% maximum specified in my acceptance criteria.
 
 ## Baseline vs. Trained
 
-<!-- Both models on the same posts. `python baseline.py --trained results.json`
-     prints this table for you. -->
+| Measure | Baseline | Trained | Difference |
+|---|---|---|---|
+| Overall accuracy | 0.452 | 0.484 | +0.032 |
+| Macro F1 | 0.326 | 0.309 | -0.017 |
+| F1 — `analysis` | 0.556 | 0.619 | +0.063 |
+| F1 — `hot_take` | 0.000 | 0.000 | +0.000 |
+| F1 — `reaction` | 0.421 | 0.308 | -0.113 |
 
-| Measure          | Baseline | Trained | Difference |
-| ---------------- | -------- | ------- | ---------- |
-| Overall accuracy |          |         |            |
-| Macro F1         |          |         |            |
-| F1 — `label_one` |          |         |            |
-| F1 — `label_two` |          |         |            |
 
 **What I predicted before I looked:**
 
-<!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
-     prediction made afterwards isn't one. -->
+I predicted the general zero-shot baseline would have higher accuracy than my trained model.
 
 **What the gap actually means:**
 
-<!-- If the baseline matched your trained model, your fine-tuning added
-     nothing — and that is a real finding, not a failure. Say it plainly. -->
+My prediction was not supported. The trained model had slightly higher accuracy, by about 3.2 percentage points. However, the baseline had higher macro F1 and performed better on reaction. Both models had zero F1 on hot_take, so fine-tuning did not solve that category.
 
 ---
 
