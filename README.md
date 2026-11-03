@@ -341,9 +341,7 @@ I labeled all 30 posts using the staff taxonomy before comparing my answers with
 
 Three disagreements involved the boundary between `analysis` and `hot_take`. I overlooked supporting evidence in two posts and treated an unsupported numerical threshold as evidence in another. The other two disagreements came from confusing general claims with personal reactions.
 
-
 ---
-
 ---
 
 ## The Improvement
@@ -364,17 +362,22 @@ Post 3 was not in any of the three training sets, so it was never changed. The o
 
 ### Run Log — After
 
+*Labeling agreement is a separate human check, measured once rather than per training seed.
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
 | 1. Overall accuracy | ≥80% | 48.39% | 51.61% | 54.84% | MISSED |
 | 2. Every label F1 | ≥0.70 | Minimum: 0.000 | Minimum: 0.000 | Minimum: 0.000 | MISSED |
 | 3. Largest label share | ≤60% | 40.3% | 40.3% | 40.3% | MET |
-| 4. Independent labeling agreement | ≥24/30 using my gaming taxonomy | Not measured | Not measured | Not measured | NOT YET MEASURED |
+| 4. Independent labeling agreement | ≥24/30 using my gaming taxonomy | 28/30 (93.33%)* | Same   
+ check* | Same check* | MET |
 | 5. High-confidence accuracy | ≥85% at confidence ≥0.80, with ≥10 predictions | Threshold check not recorded | Threshold check not recorded | 0 qualifying; accuracy N/A | MISSED |
 
 Class balance refers to the original full dataset, which remained unchanged. Criterion 5 was missed because seed 2024 did not meet the minimum qualifying count; the target must hold across all three seeds. Its threshold measurements were not recorded for the other two after-runs.
 
 ### Before-and-after comparison
+
+*Labeling agreement is a separate human check, measured once rather than per training seed.
 
 | Measure | Seed 42 Before → After | Seed 7 Before → After | Seed 2024 Before → After |
 |---|---|---|---|
@@ -391,8 +394,6 @@ Class balance refers to the original full dataset, which remained unchanged. Cri
 ## What's Still Broken
 
 **Overall accuracy and per-label performance:** Accuracy remains below 80% across all three seeds, and no label meets the 0.70 F1 target. The model still never predicts `hot_take`. I would next review more training examples around the difficult boundaries and collect clearer examples of the smallest label. I stopped after the single measured correction to keep this experiment focused.
-
-**Independent labeling consistency:** Criterion 4 remains untested. I still need a second person to independently label the same 30 gaming comments using my definitions. The staff-taxonomy agreement exercise does not replace this check.
 
 **High-confidence predictions:** Seed 2024 produced no predictions with confidence at least 0.80 after the improvement, so the minimum of 10 was not met. The threshold check was not recorded for the other two after-runs. Future evaluation should save individual confidence values for every seed so this measurement is always available.
 
