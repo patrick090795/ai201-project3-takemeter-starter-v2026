@@ -212,7 +212,7 @@ My prediction was not supported. The trained model had slightly higher accuracy,
 | 2. Every label F1 | ≥0.70 | Minimum: 0.000 | Minimum: 0.000 | Minimum: 0.000 | MISSED |
 | 3. Largest label share | ≤60% | 40.3%* | 40.3%* | 40.3%* | MET* |
 | 4. Independent labeling agreement | ≥24/30 | Not measured | Not measured | Not measured | Pending |
-| | 5. High-confidence accuracy | ≥85% accuracy at confidence ≥0.80, with ≥10 predictions | 0 qualifying; accuracy N/A | 0 qualifying; accuracy N/A | 0 qualifying; accuracy N/A | MISSED |
+| 5. High-confidence accuracy | ≥85% accuracy at confidence ≥0.80, with ≥10 predictions | 0 qualifying; accuracy N/A | 0 qualifying; accuracy N/A | 0 qualifying; accuracy N/A | MISSED |
 
 ### Confusion matrix
 
@@ -257,55 +257,84 @@ The largest confusion was 9 reaction posts classified as analysis, while no anal
 
 ## Agreement Report
 
-<!-- Your rate against the staff set, and every disagreement adjudicated.
+**Agreement rate:** 25 / 30 = **83.33%**
 
-     Remember you labelled these 30 under the STAFF taxonomy in
-     data/staff_taxonomy.md, not your own — so every argument below is made
-     from those definitions and those decision rules. -->
+I labeled all 30 posts using the staff taxonomy before comparing my answers with the staff labels. All 30 texts matched. There were five disagreements, reviewed below. My original labels remain unchanged to preserve the comparison.
 
-**Agreement rate:** **_ / 30 = _**%
+### 1. Carbon plates and training mileage
 
-<!-- Nobody grades this number. A 60% who argues every disagreement from the
-     stated rules beats a 95% who wrote "staff was right" nine times. Several
-     of the 30 were chosen because they're genuinely ambiguous — you should be
-     winning some of these. -->
+**The post:**
 
-**Disagreements**
+> Carbon plates aren't the whole story. My times dropped 2% in the shoes and another 2% the following year in the same pair, when the only thing that changed was going from 35 to 50 miles a week.
 
-<!-- Three lines each: the post, both labels, and who you think is right and
-     why — grounded in the staff definitions you were both applying.
+**Staff said:** `analysis`  
+**I said:** `hot_take`
 
-     Then sort each into one of three piles:
-       (a) the rule covered it and I applied it loosely → a consistency problem
-       (b) the rule genuinely doesn't say               → a gap in the definitions
-       (c) the rule is ambiguous here and my reading is defensible → argue it.
-           This is a legitimate win.
+**My call, and why:** I agree with `analysis`. The writer compares two 2% improvements and an increase from 35 to 50 miles per week to support the argument that shoes alone do not explain the improvement. Under rule 1, these details carry the argument rather than decorate it.
 
-     Pile (a) is the one that matters most for your diagnosis: if you applied a
-     written rule two different ways on 30 posts, that is direct evidence about
-     what you did across your own 200. -->
+**Which pile:** (a) The rule covered it, but I applied it loosely.
 
-**1.**
+### 2. Marathon non-starters
 
-> _The post:_
->
-> _Staff said / I said:_
->
-> _My call, and why:_
->
-> _Which pile:_
+**The post:**
 
-**2.**
+> Went back through the club results going back to 2012. Every single year the number of people who enter the spring marathon and don't start it sits between 18 and 23 percent. It's not a bad-luck year, it's the base rate.
 
-> _The post:_
->
-> _Staff said / I said:_
->
-> _My call, and why:_
->
-> _Which pile:_
+**Staff said:** `analysis`  
+**I said:** `hot_take`
 
-**What the pattern in my disagreements tells me:**
+**My call, and why:** I agree with `analysis`. The results since 2012 show a repeated non-start rate of 18–23%. This pattern supports the conclusion that it is normal rather than one unlucky year. Under rule 1, the figures support the reasoning.
+
+**Which pile:** (a) The rule covered it, but I applied it loosely.
+
+### 3. Energy gels before 90 minutes
+
+**The post:**
+
+> If you need a gel before 90 minutes you have a fuelling problem, not an energy problem.
+
+**Staff said:** `hot_take`  
+**I said:** `analysis`
+
+**My call, and why:** I agree with `hot_take`. The writer provides no evidence that needing a gel before 90 minutes indicates a fuelling problem. The number is part of the claim, not evidence supporting it. Under rule 1, a number alone does not make a post analysis.
+
+**Which pile:** (a) The rule covered it, but I applied it loosely.
+
+### 4. Enjoying long runs
+
+**The post:**
+
+> Nobody actually enjoys the long run. They enjoy having done it, which is a completely different thing, and the sport would be more honest if it said so.
+
+**Staff said:** `hot_take`  
+**I said:** `reaction`
+
+**My call, and why:** I agree with `hot_take`. I initially focused on the feeling of enjoyment, but “Nobody actually enjoys” makes an unsupported claim about all runners. Under rule 2, this is a general claim rather than the writer's immediate personal reaction.
+
+**Which pile:** (a) The rule covered it, but I applied it loosely.
+
+### 5. Repeated injury threads
+
+**The post:**
+
+> Every injury thread on this forum is the same injury and the same three replies.
+
+**Staff said:** `hot_take`  
+**I said:** `reaction`
+
+**My call, and why:** I agree with `hot_take`. The writer generalizes about every injury thread without providing examples or evidence. Under rule 2, this is a claim about the forum rather than an immediate personal experience.
+
+**Which pile:** (a) The rule covered it, but I applied it loosely.
+
+### What the pattern in my disagreements tells me
+
+Three disagreements involved the boundary between `analysis` and `hot_take`. I overlooked supporting evidence in two posts and treated an unsupported numerical threshold as evidence in another. The other two disagreements came from confusing general claims with personal reactions.
+
+After reviewing the rules, I placed all five disagreements in pile (a). This suggests I need to apply the evidence and personal-response rules more carefully. It gives me a reason to review similar boundaries in my gaming dataset, but it does not prove that labeling caused the model's errors.
+
+This staff-taxonomy check is separate from acceptance criterion 4, which requires two people to label 30 gaming comments using my own taxonomy.
+
+---
 
 ---
 
