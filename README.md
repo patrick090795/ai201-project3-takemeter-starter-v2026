@@ -176,10 +176,13 @@ No label exceeds the 60% maximum specified in my acceptance criteria.
 
 **Pre-labeling disclosure:** Of the 201 examples, 16 were labeled independently (`cold`); 185 were AI-assisted and then human-reviewed and approved. Four of the initial 20 examples were AI-assisted. No synthetic stress-test comments were used as training examples.
 
-<!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
+**Moment 3 — Testing and error review**
 
-     Don't fill these in during unit 5.
-     ═══════════════════════════════════════════════════════════════════ -->
+- **What I asked for:** I asked AI to help interpret the baseline comparison, three-seed results, confusion matrix, and staff-label disagreements.
+- **What came back:** Explanations of the errors, suggested adjudication wording, candidate training-label corrections, and code for measuring confidence and comparing results.
+- **What I changed:** I discussed my reasoning for all five staff disagreements and accepted the staff labels after reviewing the rules. With AI assistance, I implemented a limited correction to the `analysis`–`hot_take` boundary in training data only, preserved evaluation labels, and reported the small gains and remaining failures. I also documented missing confidence measurements rather than treating them as measured results.
+
+<!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════ -->
 
 ---
 
@@ -211,10 +214,10 @@ My prediction was not supported. The trained model had slightly higher accuracy,
 | 1. Overall accuracy | ≥80% | 48.39% | 48.39% | 54.84% | MISSED |
 | 2. Every label F1 | ≥0.70 | Minimum: 0.000 | Minimum: 0.000 | Minimum: 0.000 | MISSED |
 | 3. Largest label share | ≤60% | 40.3%* | 40.3%* | 40.3%* | MET* |
-| 4. Independent labeling agreement | ≥24/30 | Not measured | Not measured | Not measured | Pending |
+| 4. Independent labeling agreement | ≥24/30 | Not measured | Not measured | Not measured | NOT YET MEASURED |
 | 5. High-confidence accuracy | ≥85% accuracy at confidence ≥0.80, with ≥10 predictions | 0 qualifying; accuracy N/A | 0 qualifying; accuracy N/A | 0 qualifying; accuracy N/A | MISSED |
 
-### Confusion matrix
+### Confusion matrix — Seed 42
 
 
 | true \ predicted | analysis | hot_take | reaction |
@@ -231,27 +234,35 @@ The largest confusion was 9 reaction posts classified as analysis, while no anal
 
 ## Verdicts and Diagnoses
 
-<!-- MET or MISSED against LAST UNIT's target. The target has to hold across
-     all three seeds, not turn up sometimes. -->
+| # | Criterion | Target | Verdict | How I decided |
+|---|---|---|---|---|
+| 1 | Overall accuracy | At least 80% | MISSED | Accuracy was 48.39%, 48.39%, and 54.84%. All three runs were below the target. |
+| 2 | Per-label performance | Every label F1 at least 0.70 | MISSED | No label reached 0.70 in any run. `hot_take` had zero F1 across all three seeds. |
+| 3 | Class balance | No label above 60% | MET, based on recorded counts | The largest label was `analysis`, with 81 of 201 examples (40.3%). This checks the full dataset once, independently of seed. |
+| 4 | Independent labeling consistency | At least 24/30 agreements using my gaming taxonomy | NOT YET MEASURED | The staff exercise used different definitions and running posts, so its 83.33% agreement does not test this criterion. |
+| 5 | High-confidence accuracy | At least 85% correct among predictions with confidence ≥0.80, with at least 10 qualifying predictions | MISSED | Every seed produced zero qualifying predictions. Accuracy for this group was undefined, and the minimum count was not met. |
 
-| #   | Criterion | Target | Verdict | How I decided |
-| --- | --------- | ------ | ------- | ------------- |
-| 1   |           |        |         |               |
-| 2   |           |        |         |               |
-| 3   |           |        |         |               |
-| 4   |           |        |         |               |
-| 5   |           |        |         |               |
+### Diagnoses
 
-**Diagnoses**
+**Criterion 1 — Overall accuracy**
 
-<!-- For each miss: the cause, and how you know. The four common causes are:
-     too few examples for a label, a boundary you applied inconsistently, a
-     genuinely hard label pair, and a task the model can't reach from this
-     much data.
+The model favored `analysis` and failed to recognize `hot_take`. In seed 42, it classified all seven `hot_take` posts and nine of eleven `reaction` posts as `analysis`. Those 16 errors explain the accuracy shortfall on that split. The staff agreement check revealed mistakes in how I distinguished evidence from unsupported claims and general claims from personal reactions. This makes labeling consistency a plausible contributor, but the different taxonomy means it is not proof of the cause in my gaming dataset.
 
-     ⚠️ Use your agreement report as evidence. It is the only instrument you
-     have that can tell a LABELLING problem from a MODEL problem, and this
-     section is graded on whether you used it that way. -->
+**Criterion 2 — Per-label performance**
+
+The strongest repeated failure was `hot_take`: the model never predicted it in any of the three runs. It was also the smallest category, with 47 examples overall and seven test examples per split. Limited examples and an inconsistently applied boundary are possible contributors. Three staff disagreements concerned `analysis` versus `hot_take`, and two concerned `hot_take` versus `reaction`. 
+
+**Criterion 3 — Class balance**
+
+The recorded counts meet the target, so there is no miss to diagnose. However, meeting the 60% limit does not mean the labels have equal representation or that the model learned all three categories.
+
+**Criterion 4 — Independent labeling consistency**
+
+This criterion has not yet been tested. I still need a second person to independently label the same 30 gaming comments using my own definitions. I cannot claim MET or a measured disagreement rate from the staff exercise.
+
+**Criterion 5 — High-confidence accuracy**
+
+The immediate reason for the miss is insufficient coverage: no prediction reached confidence 0.80 in any run. The saved mean confidence values for correct and incorrect predictions were both below 0.45 across the three seeds. Together with the weak classification results, this suggests the model had not learned strong distinctions between the labels under the current setup. The available evidence does not isolate whether the underlying cause is labeling consistency, limited data, or training.
 
 ---
 
@@ -330,9 +341,6 @@ I labeled all 30 posts using the staff taxonomy before comparing my answers with
 
 Three disagreements involved the boundary between `analysis` and `hot_take`. I overlooked supporting evidence in two posts and treated an unsupported numerical threshold as evidence in another. The other two disagreements came from confusing general claims with personal reactions.
 
-After reviewing the rules, I placed all five disagreements in pile (a). This suggests I need to apply the evidence and personal-response rules more carefully. It gives me a reason to review similar boundaries in my gaming dataset, but it does not prove that labeling caused the model's errors.
-
-This staff-taxonomy check is separate from acceptance criterion 4, which requires two people to label 30 gaming comments using my own taxonomy.
 
 ---
 
@@ -340,50 +348,60 @@ This staff-taxonomy check is separate from acceptance criterion 4, which require
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** I applied one correction to the `analysis`–`hot_take` boundary: broad claims without specific supporting evidence were changed from `analysis` to `hot_take`, but only when those posts appeared in a training set.
 
-**Which diagnosis pointed at it:**
+I reviewed posts 2, 3, 113, and 151. The actual training corrections were:
+
+| Seed | Posts corrected | Number changed |
+|---|---|---:|
+| 42 | 113 | 1 |
+| 7 | 2, 151 | 2 |
+| 2024 | 2, 113 | 2 |
+
+Post 3 was not in any of the three training sets, so it was never changed. The original `labels.csv`, validation labels, and test labels remained unchanged. I kept the same seeds, model, and training settings.
+
+**Which diagnosis pointed at it:** The model never predicted `hot_take` across the three original runs. My staff agreement check also revealed three mistakes involving supported arguments versus unsupported claims. Reviewing my gaming dataset identified broad claims labeled as `analysis`, which justified testing this limited correction.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
-| --------- | ------ | ------- | ------ | --------- | ------- |
-| 1.        |        |         |        |           |         |
-| 2.        |        |         |        |           |         |
-| 3.        |        |         |        |           |         |
-| 4.        |        |         |        |           |         |
-| 5.        |        |         |        |           |         |
+|---|---|---|---|---|---|
+| 1. Overall accuracy | ≥80% | 48.39% | 51.61% | 54.84% | MISSED |
+| 2. Every label F1 | ≥0.70 | Minimum: 0.000 | Minimum: 0.000 | Minimum: 0.000 | MISSED |
+| 3. Largest label share | ≤60% | 40.3% | 40.3% | 40.3% | MET |
+| 4. Independent labeling agreement | ≥24/30 using my gaming taxonomy | Not measured | Not measured | Not measured | NOT YET MEASURED |
+| 5. High-confidence accuracy | ≥85% at confidence ≥0.80, with ≥10 predictions | Threshold check not recorded | Threshold check not recorded | 0 qualifying; accuracy N/A | MISSED |
 
-**Did it help, and how do I know:**
+Class balance refers to the original full dataset, which remained unchanged. Criterion 5 was missed because seed 2024 did not meet the minimum qualifying count; the target must hold across all three seeds. Its threshold measurements were not recorded for the other two after-runs.
 
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
+### Before-and-after comparison
+
+| Measure | Seed 42 Before → After | Seed 7 Before → After | Seed 2024 Before → After |
+|---|---|---|---|
+| Accuracy | 48.39% → 48.39% | 48.39% → 51.61% | 54.84% → 54.84% |
+| Macro F1 | 0.309 → 0.309 | 0.306 → 0.346 | 0.409 → 0.412 |
+| `analysis` F1 | 0.619 → 0.619 | 0.667 → 0.684 | 0.645 → 0.643 |
+| `hot_take` F1 | 0.000 → 0.000 | 0.000 → 0.000 | 0.000 → 0.000 |
+| `reaction` F1 | 0.308 → 0.308 | 0.250 → 0.353 | 0.583 → 0.593 |
+
+**Did it help, and how do I know:** The correction produced a small, mixed improvement. Seed 7 gained one correct test prediction, increasing accuracy by 3.23 percentage points. Accuracy stayed unchanged for seeds 42 and 2024, while macro F1 increased slightly for seed 2024. None of the models predicted `hot_take`, so the correction did not solve the main failure. This small experiment does not establish that a wider labeling review would fix the model.
 
 ---
 
 ## What's Still Broken
 
-<!-- For each criterion still missed: what you'd do, and why you stopped. -->
+**Overall accuracy and per-label performance:** Accuracy remains below 80% across all three seeds, and no label meets the 0.70 F1 target. The model still never predicts `hot_take`. I would next review more training examples around the difficult boundaries and collect clearer examples of the smallest label. I stopped after the single measured correction to keep this experiment focused.
 
-**The gap between what I meant my labels to capture and what the model
-learned:**
+**Independent labeling consistency:** Criterion 4 remains untested. I still need a second person to independently label the same 30 gaming comments using my definitions. The staff-taxonomy agreement exercise does not replace this check.
+
+**High-confidence predictions:** Seed 2024 produced no predictions with confidence at least 0.80 after the improvement, so the minimum of 10 was not met. The threshold check was not recorded for the other two after-runs. Future evaluation should save individual confidence values for every seed so this measurement is always available.
+
+**The gap between what I meant my labels to capture and what the model learned:** I intended the labels to distinguish supported arguments, unsupported claims, and personal reactions. The seed 42 confusion matrix instead shows a strong preference for `analysis`, including all seven `hot_take` posts and nine of eleven `reaction` posts.
+
 
 <!-- Two sentences. Your confusion matrix is the evidence. -->
 
 <!-- ═════════════════════════════════════════════════════════════════════
-
-     SUBMISSION CHECKLIST — unit 5
-
-       [x] criteria.md has five numbered criteria, each naming a NUMBER
-       [x] Each has a reason underneath tied to your data or taxonomy
-       [x] labels.csv: 201 rows, text/label/note, ONE file not split
-       [x] No label above 70%
-       [x] All five unit 5 sections have real content
-       [x] Label Taxonomy includes the decision rule for your hardest boundary
-       [x] The Dataset includes three hard cases
-       [ ] results.json and test_split.csv committed (generated in Colab; Git commit not yet verified)
-       [ ] At least four new commits (verify Git history)
-       [ ] Repository URL submitted — WRITE IT DOWN
 
      SUBMISSION CHECKLIST — unit 6
 

@@ -1,0 +1,206 @@
+[
+  {
+    "seed": 42,
+    "n_test": 31,
+    "accuracy": 0.4838709677419355,
+    "f1_macro": 0.3089133089133089,
+    "per_label": {
+      "analysis": {
+        "precision": 0.4482758620689655,
+        "recall": 1.0,
+        "f1": 0.6190476190476191,
+        "support": 13
+      },
+      "hot_take": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "reaction": {
+        "precision": 1.0,
+        "recall": 0.18181818181818182,
+        "f1": 0.3076923076923077,
+        "support": 11
+      }
+    },
+    "confusion": {
+      "analysis": {
+        "analysis": 13,
+        "hot_take": 0,
+        "reaction": 0
+      },
+      "hot_take": {
+        "analysis": 7,
+        "hot_take": 0,
+        "reaction": 0
+      },
+      "reaction": {
+        "analysis": 9,
+        "hot_take": 0,
+        "reaction": 2
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.43973252177238464,
+      "mean_when_wrong": 0.4243760108947754,
+      "accuracy_most_confident_third": 0.6,
+      "accuracy_least_confident_third": 0.3,
+      "n_per_third": 10
+    },
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "torch_version": "2.11.0+cu130",
+    "max_length": 128,
+    "run_label": "after",
+    "training_label_corrections": [
+      {
+        "post_number": 113,
+        "text": "Fast travel is one of the strangest compromises in open-world games.We spend hours begging for a huge world, then immediately ask for a button that lets us skip traveling through it.",
+        "old_label": "analysis",
+        "new_label": "hot_take"
+      }
+    ]
+  },
+  {
+    "seed": 7,
+    "n_test": 31,
+    "accuracy": 0.5161290322580645,
+    "f1_macro": 0.3457172342621259,
+    "per_label": {
+      "analysis": {
+        "precision": 0.52,
+        "recall": 1.0,
+        "f1": 0.6842105263157895,
+        "support": 13
+      },
+      "hot_take": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "reaction": {
+        "precision": 0.5,
+        "recall": 0.2727272727272727,
+        "f1": 0.35294117647058826,
+        "support": 11
+      }
+    },
+    "confusion": {
+      "analysis": {
+        "analysis": 13,
+        "hot_take": 0,
+        "reaction": 0
+      },
+      "hot_take": {
+        "analysis": 4,
+        "hot_take": 0,
+        "reaction": 3
+      },
+      "reaction": {
+        "analysis": 8,
+        "hot_take": 0,
+        "reaction": 3
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.4153286814689636,
+      "mean_when_wrong": 0.38979488611221313,
+      "accuracy_most_confident_third": 0.8,
+      "accuracy_least_confident_third": 0.3,
+      "n_per_third": 10
+    },
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "torch_version": "2.11.0+cu130",
+    "max_length": 128,
+    "run_label": "after",
+    "training_label_corrections": [
+      {
+        "post_number": 151,
+        "text": "Unpopular opinion: Open worlds are actively hurting narrative pacing in modern AAA games. Sometimes, a tighter, linear 15 hour experience is infinitely better than 60 hours of repetitive \"go fetch\" side quests. Quality over quantity.",
+        "old_label": "analysis",
+        "new_label": "hot_take"
+      },
+      {
+        "post_number": 2,
+        "text": "Big game releases don't just compete for money; they compete for people's attention. Even a great indie game can struggle to get noticed when everyone is talking about one major release.",
+        "old_label": "analysis",
+        "new_label": "hot_take"
+      }
+    ]
+  },
+  {
+    "seed": 2024,
+    "n_test": 31,
+    "accuracy": 0.5483870967741935,
+    "f1_macro": 0.4118165784832451,
+    "per_label": {
+      "analysis": {
+        "precision": 0.6,
+        "recall": 0.6923076923076923,
+        "f1": 0.6428571428571429,
+        "support": 13
+      },
+      "hot_take": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "reaction": {
+        "precision": 0.5,
+        "recall": 0.7272727272727273,
+        "f1": 0.5925925925925926,
+        "support": 11
+      }
+    },
+    "confusion": {
+      "analysis": {
+        "analysis": 9,
+        "hot_take": 0,
+        "reaction": 4
+      },
+      "hot_take": {
+        "analysis": 3,
+        "hot_take": 0,
+        "reaction": 4
+      },
+      "reaction": {
+        "analysis": 3,
+        "hot_take": 0,
+        "reaction": 8
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.38266757130622864,
+      "mean_when_wrong": 0.3696414828300476,
+      "accuracy_most_confident_third": 0.9,
+      "accuracy_least_confident_third": 0.2,
+      "n_per_third": 10,
+      "threshold_080_count": 0,
+      "threshold_080_accuracy": null,
+      "criterion_5_met": false
+    },
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "torch_version": "2.11.0+cu130",
+    "max_length": 128,
+    "run_label": "after",
+    "training_label_corrections": [
+      {
+        "post_number": 2,
+        "text": "Big game releases don't just compete for money; they compete for people's attention. Even a great indie game can struggle to get noticed when everyone is talking about one major release.",
+        "old_label": "analysis",
+        "new_label": "hot_take"
+      },
+      {
+        "post_number": 113,
+        "text": "Fast travel is one of the strangest compromises in open-world games.We spend hours begging for a huge world, then immediately ask for a button that lets us skip traveling through it.",
+        "old_label": "analysis",
+        "new_label": "hot_take"
+      }
+    ]
+  }
+]
