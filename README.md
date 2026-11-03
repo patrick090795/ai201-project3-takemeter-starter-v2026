@@ -206,33 +206,26 @@ My prediction was not supported. The trained model had slightly higher accuracy,
 
 ## Run Log — Before
 
-<!-- Five criteria across three seeds. The notebook's section 6 prints the
-     spread table; the Target and Verdict columns are yours. -->
-
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
-| --------- | ------ | ------- | ------ | --------- | ------- |
-| 1.        |        |         |        |           |         |
-| 2.        |        |         |        |           |         |
-| 3.        |        |         |        |           |         |
-| 4.        |        |         |        |           |         |
-| 5.        |        |         |        |           |         |
+|---|---|---|---|---|---|
+| 1. Overall accuracy | ≥80% | 48.39% | 48.39% | 54.84% | MISSED |
+| 2. Every label F1 | ≥0.70 | Minimum: 0.000 | Minimum: 0.000 | Minimum: 0.000 | MISSED |
+| 3. Largest label share | ≤60% | 40.3%* | 40.3%* | 40.3%* | MET* |
+| 4. Independent labeling agreement | ≥24/30 | Not measured | Not measured | Not measured | Pending |
+| | 5. High-confidence accuracy | ≥85% accuracy at confidence ≥0.80, with ≥10 predictions | 0 qualifying; accuracy N/A | 0 qualifying; accuracy N/A | 0 qualifying; accuracy N/A | MISSED |
 
 ### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
 
-| true \ predicted |     |     |     |
-| ---------------- | --- | --- | --- |
-| \*\*\*\*         |     |     |     |
-| \*\*\*\*         |     |     |     |
-| \*\*\*\*         |     |     |     |
+| true \ predicted | analysis | hot_take | reaction |
+|---|---|---|---|
+| **analysis** | 13 | 0 | 0 |
+| **hot_take** | 7 | 0 | 0 |
+| **reaction** | 9 | 0 | 2 |
 
 **My biggest off-diagonal number, and what it means:**
 
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
+The largest confusion was 9 reaction posts classified as analysis, while no analysis posts were classified as reaction. This shows the model favored analysis on this split. 
 
 ---
 

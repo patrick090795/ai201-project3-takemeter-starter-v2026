@@ -1,0 +1,173 @@
+[
+  {
+    "seed": 42,
+    "n_test": 31,
+    "accuracy": 0.4838709677419355,
+    "f1_macro": 0.3089133089133089,
+    "per_label": {
+      "analysis": {
+        "precision": 0.4482758620689655,
+        "recall": 1.0,
+        "f1": 0.6190476190476191,
+        "support": 13
+      },
+      "hot_take": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "reaction": {
+        "precision": 1.0,
+        "recall": 0.18181818181818182,
+        "f1": 0.3076923076923077,
+        "support": 11
+      }
+    },
+    "confusion": {
+      "analysis": {
+        "analysis": 13,
+        "hot_take": 0,
+        "reaction": 0
+      },
+      "hot_take": {
+        "analysis": 7,
+        "hot_take": 0,
+        "reaction": 0
+      },
+      "reaction": {
+        "analysis": 9,
+        "hot_take": 0,
+        "reaction": 2
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.44814011454582214,
+      "mean_when_wrong": 0.4342113137245178,
+      "accuracy_most_confident_third": 0.6,
+      "accuracy_least_confident_third": 0.3,
+      "n_per_third": 10,
+      "threshold_080_count": 0,
+      "threshold_080_accuracy": null,
+      "criterion_5_met": false
+    },
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "torch_version": "2.11.0+cu130",
+    "max_length": 128
+  },
+  {
+    "seed": 7,
+    "n_test": 31,
+    "accuracy": 0.4838709677419355,
+    "f1_macro": 0.3055555555555555,
+    "per_label": {
+      "analysis": {
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "support": 13
+      },
+      "hot_take": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "reaction": {
+        "precision": 0.4,
+        "recall": 0.18181818181818182,
+        "f1": 0.25,
+        "support": 11
+      }
+    },
+    "confusion": {
+      "analysis": {
+        "analysis": 13,
+        "hot_take": 0,
+        "reaction": 0
+      },
+      "hot_take": {
+        "analysis": 4,
+        "hot_take": 0,
+        "reaction": 3
+      },
+      "reaction": {
+        "analysis": 9,
+        "hot_take": 0,
+        "reaction": 2
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.43160828948020935,
+      "mean_when_wrong": 0.39976733922958374,
+      "accuracy_most_confident_third": 0.8,
+      "accuracy_least_confident_third": 0.4,
+      "n_per_third": 10,
+      "threshold_080_count": 0,
+      "threshold_080_accuracy": null,
+      "criterion_5_met": false
+    },
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "torch_version": "2.11.0+cu130",
+    "max_length": 128
+  },
+  {
+    "seed": 2024,
+    "n_test": 31,
+    "accuracy": 0.5483870967741935,
+    "f1_macro": 0.40949820788530467,
+    "per_label": {
+      "analysis": {
+        "precision": 0.5555555555555556,
+        "recall": 0.7692307692307693,
+        "f1": 0.6451612903225806,
+        "support": 13
+      },
+      "hot_take": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "reaction": {
+        "precision": 0.5384615384615384,
+        "recall": 0.6363636363636364,
+        "f1": 0.5833333333333334,
+        "support": 11
+      }
+    },
+    "confusion": {
+      "analysis": {
+        "analysis": 10,
+        "hot_take": 0,
+        "reaction": 3
+      },
+      "hot_take": {
+        "analysis": 4,
+        "hot_take": 0,
+        "reaction": 3
+      },
+      "reaction": {
+        "analysis": 4,
+        "hot_take": 0,
+        "reaction": 7
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.3913693130016327,
+      "mean_when_wrong": 0.3781760334968567,
+      "accuracy_most_confident_third": 0.9,
+      "accuracy_least_confident_third": 0.3,
+      "n_per_third": 10,
+      "threshold_080_count": 0,
+      "threshold_080_accuracy": null,
+      "criterion_5_met": false
+    },
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "torch_version": "2.11.0+cu130",
+    "max_length": 128
+  }
+]
